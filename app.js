@@ -68,7 +68,7 @@ app.post('/', function (req, res) {
 
   const request = https.request(url, options, function (response) {
 
-    //se 
+    //direciona para pagina de sucesso ou falha
     if (response.statusCode === 200){
       res.sendFile(__dirname + "/success.html")
     } else {
@@ -76,7 +76,7 @@ app.post('/', function (req, res) {
     }
 
     response.on("data", function (data) {
-      console.log(JSON.parse(data));
+      console.log(JSON.parse(data));  
 
     })
   })
@@ -102,12 +102,7 @@ app.post("/failure.html", function(req, res) {
 
 
 
-
-
-
-
-
-
-
 app.get('/', (req, res) => res.send('Hello World!'))
-app.listen(port, () => console.log(`Example app listening on port port!`))
+
+//alterado para servidor Heroku
+app.listen(process.env.PORT || port, () => console.log(`Example app listening on port port!`))
