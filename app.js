@@ -1,29 +1,25 @@
 const express = require('express')
+
+//necessário para renderizar o html no localhost
+const bodyParser = require("body-parser")
 const app = express()
 const port = 3000
 
 //necessario conforme documentação node api https
 const https = require("https")
 
-//necessário para renderizar o html no localhost
-const bodyParser = require("body-parser")
-const {
-  request
-} = require('http')
-const { emitWarning } = require('process')
+//renderiza no localhost o css e imagens na pasta public
+app.use(express.static("public"))
 
 //necessário para renderizar o html no localhost
-app.use(bodyParser.urlencoded({
-  extended: true
-}))
+app.use(bodyParser.urlencoded({extended: true}))
 
 //renderiza no localhost o arquivo html
 app.get('/', (req, res) => {
   res.sendFile(__dirname + "/signup.html")
 })
 
-//renderiza no localhost o css e imagens na pasta public
-app.use(express.static("public"))
+
 
 app.post('/', function (req, res) {
 
@@ -80,8 +76,6 @@ app.post('/', function (req, res) {
 
     })
   })
-
-
 
   request.write(jsonData);
   request.end();
